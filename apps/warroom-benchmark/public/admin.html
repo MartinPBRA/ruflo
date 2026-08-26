@@ -61,19 +61,44 @@
     </table>
   </div>
 
+  <h2>Benchmark Library</h2>
+  <div class="wr-panel">
+    <div class="wr-row" style="align-items: flex-end; flex-wrap: wrap;">
+      <div class="wr-field" style="min-width: 200px;">
+        <label>Load StackAdapt CSVs</label>
+        <input class="wr-input" id="lib-files" type="file" accept=".csv" multiple />
+      </div>
+      <button class="wr-btn" id="lib-load">Load</button>
+      <div id="lib-status" style="color: var(--wr-fg-muted); font-family: var(--wr-font-mono); font-size: 0.85rem;"></div>
+    </div>
+  </div>
+
   <div id="editor" class="wr-panel" style="display:none;">
     <h2 id="editor-title" style="margin-bottom: 16px;"></h2>
     <div class="wr-field">
       <label>Summary (shown to client)</label>
       <textarea class="wr-textarea" id="editor-summary" rows="2"></textarea>
     </div>
+
+    <h3 style="margin-top: 8px;">Benchmark slice</h3>
+    <p style="color: var(--wr-fg-muted); font-size: 0.85rem;">Pick which slice of the benchmark library this report should surface. Leave a field blank to leave it unfiltered (values are averaged across matches, weighted by impressions in the top-segments table).</p>
+    <div class="wr-row" style="flex-wrap: wrap;">
+      <div class="wr-field" style="flex: 1; min-width: 140px;"><label>Source</label><select class="wr-select bench-slice" id="bs-source"></select></div>
+      <div class="wr-field" style="flex: 1; min-width: 140px;"><label>Period</label><select class="wr-select bench-slice" id="bs-period"></select></div>
+      <div class="wr-field" style="flex: 1; min-width: 140px;"><label>Channel</label><select class="wr-select bench-slice" id="bs-channel"></select></div>
+      <div class="wr-field" style="flex: 1; min-width: 140px;"><label>Country</label><select class="wr-select bench-slice" id="bs-country"></select></div>
+      <div class="wr-field" style="flex: 2; min-width: 200px;"><label>Category</label><select class="wr-select bench-slice" id="bs-category"></select></div>
+      <div class="wr-field" style="flex: 2; min-width: 200px;"><label>Brand Category</label><select class="wr-select bench-slice" id="bs-brand"></select></div>
+    </div>
+    <div id="slice-preview" style="color: var(--wr-fg-muted); font-family: var(--wr-font-mono); font-size: 0.8rem; margin-bottom: 12px;"></div>
+
     <div class="wr-row" style="margin-bottom: 16px;">
-      <button class="wr-btn secondary" id="save-summary">Save summary</button>
+      <button class="wr-btn secondary" id="save-summary">Save</button>
       <button class="wr-btn" id="toggle-publish">Publish</button>
       <a class="wr-btn secondary" id="view-link" target="_blank">Open report</a>
     </div>
 
-    <h3 style="margin-top: 8px;">Upload spreadsheet</h3>
+    <h3 style="margin-top: 8px;">Optional: upload client performance rows</h3>
     <p style="color: var(--wr-fg-muted); font-size: 0.85rem;">
       CSV or XLSX. Required columns: <code>channel</code>, <code>metric</code>. Optional: <code>unit</code>, <code>client_value</code>, <code>benchmark_value</code>, <code>industry</code>, <code>better</code> (higher|lower), <code>notes</code>.
     </p>

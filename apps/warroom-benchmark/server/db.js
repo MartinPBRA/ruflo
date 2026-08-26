@@ -13,6 +13,14 @@ db.pragma('foreign_keys = ON');
 const schema = readFileSync(join(__dirname, 'schema.sql'), 'utf8');
 db.exec(schema);
 
+const reportCols = new Set(db.prepare(`PRAGMA table_info(reports)`).all().map((c) => c.name));
+for (const col of [
+  'benchmark_source', 'benchmark_period', 'benchmark_channel',
+  'benchmark_category', 'benchmark_brand_category', 'benchmark_country',
+]) {
+  if (!reportCols.has(col)) db.exec(`ALTER TABLE reports ADD COLUMN ${col} TEXT`);
+}
+
 export function slugify(input) {
   return String(input)
     .toLowerCase()

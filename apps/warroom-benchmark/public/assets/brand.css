@@ -113,6 +113,16 @@ h3 { font-size: 1.125rem; letter-spacing: 0.08em; color: var(--wr-fg-muted); }
   display: flex; justify-content: space-between; align-items: center;
 }
 
+.wr-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.wr-chip {
+  display: inline-block; padding: 4px 10px; font-size: 0.75rem;
+  background: var(--wr-bg-elev); border: 1px solid var(--wr-border);
+  color: var(--wr-fg-muted); border-radius: 999px;
+  font-family: var(--wr-font-mono); letter-spacing: 0.02em;
+}
+.wr-chip strong { color: var(--wr-fg); font-weight: 500; }
+.wr-meta-line { color: var(--wr-fg-dim); font-family: var(--wr-font-mono); font-size: 0.8rem; }
+
 .wr-empty {
   padding: 64px 24px; text-align: center; color: var(--wr-fg-muted);
   border: 1px dashed var(--wr-border); border-radius: var(--wr-radius);

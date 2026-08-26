@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { admin } from './routes/admin.js';
 import { report } from './routes/report.js';
+import { benchmarks } from './routes/benchmarks.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 4600);
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/admin', admin);
 app.use('/api/report', report);
+app.use('/api/benchmarks', benchmarks);
 
 app.use(express.static(join(__dirname, '..', 'public')));
 app.get('/r/:slug', (_req, res) => res.sendFile(join(__dirname, '..', 'public', 'report.html')));

@@ -35,3 +35,32 @@ CREATE TABLE IF NOT EXISTS report_rows (
 
 CREATE INDEX IF NOT EXISTS idx_report_rows_report ON report_rows(report_id);
 CREATE INDEX IF NOT EXISTS idx_reports_client ON reports(client_id);
+
+-- Industry benchmark library (e.g. StackAdapt monthly).
+-- Keyed by channel x category x brand_category x country x source x period.
+CREATE TABLE IF NOT EXISTS benchmarks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  source TEXT NOT NULL,
+  period TEXT NOT NULL,
+  channel TEXT NOT NULL,
+  category TEXT,
+  brand_category TEXT,
+  country TEXT,
+  impressions INTEGER,
+  ecpm_low REAL,
+  ecpm_high REAL,
+  ecpc REAL,
+  ecpe REAL,
+  ctr REAL,
+  video_completion REAL,
+  audio_completion REAL,
+  UNIQUE(source, period, channel, category, brand_category, country)
+);
+
+CREATE INDEX IF NOT EXISTS idx_benchmarks_channel ON benchmarks(channel);
+CREATE INDEX IF NOT EXISTS idx_benchmarks_country ON benchmarks(country);
+CREATE INDEX IF NOT EXISTS idx_benchmarks_category ON benchmarks(category);
+CREATE INDEX IF NOT EXISTS idx_benchmarks_brand ON benchmarks(brand_category);
+
+-- Note: reports gets several optional benchmark_* columns via idempotent
+-- ALTER TABLE calls in db.js, since SQLite lacks ADD COLUMN IF NOT EXISTS.

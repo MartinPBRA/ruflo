@@ -50,7 +50,11 @@ admin.get('/reports/:id', (req, res) => {
 });
 
 admin.patch('/reports/:id', (req, res) => {
-  const { title, period_start, period_end, status, summary } = req.body || {};
+  const {
+    title, period_start, period_end, status, summary,
+    benchmark_source, benchmark_period, benchmark_channel,
+    benchmark_category, benchmark_brand_category, benchmark_country,
+  } = req.body || {};
   db.prepare(`
     UPDATE reports SET
       title = COALESCE(?, title),
@@ -58,9 +62,20 @@ admin.patch('/reports/:id', (req, res) => {
       period_end = COALESCE(?, period_end),
       status = COALESCE(?, status),
       summary = COALESCE(?, summary),
+      benchmark_source = COALESCE(?, benchmark_source),
+      benchmark_period = COALESCE(?, benchmark_period),
+      benchmark_channel = COALESCE(?, benchmark_channel),
+      benchmark_category = COALESCE(?, benchmark_category),
+      benchmark_brand_category = COALESCE(?, benchmark_brand_category),
+      benchmark_country = COALESCE(?, benchmark_country),
       updated_at = CURRENT_TIMESTAMP
     WHERE id = ?
-  `).run(title, period_start, period_end, status, summary, req.params.id);
+  `).run(
+    title, period_start, period_end, status, summary,
+    benchmark_source, benchmark_period, benchmark_channel,
+    benchmark_category, benchmark_brand_category, benchmark_country,
+    req.params.id,
+  );
   res.json({ ok: true });
 });
 
