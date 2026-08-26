@@ -1,7 +1,7 @@
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 const CHANNELS = ['Overview', 'Display', 'Video', 'Native', 'CTV', 'DOOH'];
-const CHANNEL_COLORS = { Display: 'pink', Video: 'purple', Native: 'green', CTV: 'peach', DOOH: 'teal', Overview: 'blue' };
+const CHANNEL_COLORS = { Display: 'pink', Video: 'purple', Native: 'mint', CTV: 'coral', DOOH: 'sky', Overview: 'ink' };
 const state = {
   channel: 'Overview',
   country: '',
@@ -103,7 +103,7 @@ function renderTiles(data) {
     }).join('');
   } else {
     // Category breakdown tiles when a specific channel is picked
-    const palette = ['pink', 'purple', 'green', 'peach', 'teal', 'yellow', 'gray', 'mint'];
+    const palette = ['sky', 'mint', 'yellow', 'pink', 'coral', 'purple', 'rose', 'ink'];
     target.innerHTML = data.by_category.slice(0, 8).map((c, i) => `
       <div class="tile w3 ${palette[i % palette.length]}">
         <div class="tile-hd">${(c.category || 'Uncategorized').replace(/ \(Legacy\)$/, '')}</div>
