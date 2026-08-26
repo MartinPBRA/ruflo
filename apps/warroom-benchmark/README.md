@@ -77,6 +77,20 @@ benchmarks (see above)
 
 Colors, type, and layout tokens live in `public/assets/brand.css` (`:root { --wr-* }`). Current values are War Room–style placeholders (near-black + red accent + condensed display type). Swap the `--wr-*` values and the triangle logo mark in `.wr-logo::before` when the real assets arrive.
 
+## Static export
+
+Bake a single self-contained HTML file (CSS + report data inlined) for a
+published report:
+
+```bash
+npm run export -- <report-slug> [output-path]
+# e.g. npm run export -- stackadapt-video-us-demo ./export/video-us.html
+```
+
+The output only needs Google Fonts on first load; everything else is
+embedded, so it opens directly in a browser and can be emailed or shared
+as a file. Output dir defaults to `export/` (git-ignored).
+
 ## Deploy
 
 Any Node host that can run `node server/index.js` and mount a persistent volume for `data/warroom.db`. Set `PORT` and `WARROOM_DB` env vars as needed. No auth yet — add basic auth or an env-gated token before exposing `/admin.html` or `/api/admin/*` publicly.
