@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>War Room — Benchmark Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/brand.css" />
+<link rel="stylesheet" href="/assets/dashboard.css" />
+</head>
+<body>
+
+<nav class="wr-nav">
+  <div class="wr-nav-inner">
+    <div class="wr-logo">War Room</div>
+    <div style="display:flex; gap:16px; align-items:center;">
+      <span class="wr-nav-meta">Industry Benchmark Dashboard</span>
+      <a href="/admin.html" class="wr-btn secondary" style="padding:6px 12px; font-size: 0.75rem;">Admin</a>
+    </div>
+  </div>
+</nav>
+
+<div class="dash-tabs" id="tabs"></div>
+
+<main class="dash-shell">
+
+  <header class="dash-header">
+    <div>
+      <h1 id="dash-title">Platform Benchmarks</h1>
+      <div class="dash-sub" id="dash-sub">StackAdapt · May 2026</div>
+    </div>
+    <div class="dash-filters">
+      <label class="dash-filter">
+        <span>Country</span>
+        <select id="f-country"><option value="">All</option></select>
+      </label>
+      <label class="dash-filter">
+        <span>Category</span>
+        <select id="f-category"><option value="">All</option></select>
+      </label>
+      <label class="dash-filter">
+        <span>Brand Category</span>
+        <select id="f-brand"><option value="">All</option></select>
+      </label>
+      <button class="wr-btn secondary" id="f-reset" style="align-self:end;">Reset</button>
+    </div>
+  </header>
+
+  <section class="dash-summary" id="summary"></section>
+
+  <section class="dash-grid" id="tiles"></section>
+
+  <section class="dash-panel">
+    <div class="dash-panel-head">
+      <h2 id="table-title">Top Segments</h2>
+      <div class="dash-sub" id="table-meta"></div>
+    </div>
+    <div class="dash-table-wrap">
+      <table class="dash-table" id="segments">
+        <thead><tr>
+          <th data-sort="channel">Channel</th>
+          <th data-sort="category">Category</th>
+          <th data-sort="brand_category">Brand Category</th>
+          <th data-sort="country">Country</th>
+          <th data-sort="impressions" class="num">Impressions</th>
+          <th data-sort="ecpm_low" class="num">eCPM</th>
+          <th data-sort="ecpc" class="num">eCPC</th>
+          <th data-sort="ctr" class="num">CTR</th>
+          <th data-sort="video_completion" class="num">VCR</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wr-footer" style="max-width: 1400px; margin: 0 auto; padding: 32px 24px;">
+  <span>© War Room Inc. — Paid Media Benchmark</span>
+  <span id="footer-date"></span>
+</footer>
+
+<script src="/assets/dashboard.js"></script>
+</body>
+</html>

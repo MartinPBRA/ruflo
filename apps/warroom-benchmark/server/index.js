@@ -22,6 +22,7 @@ app.get('/r/:slug', (_req, res) => res.sendFile(join(__dirname, '..', 'public', 
 app.listen(PORT, () => {
   console.log(`\n  War Room Benchmark`);
   console.log(`  ─────────────────────`);
-  console.log(`  Admin:  http://localhost:${PORT}/admin.html`);
-  console.log(`  Report: http://localhost:${PORT}/r/<slug>\n`);
+  console.log(`  Dashboard: http://localhost:${PORT}/dashboard.html`);
+  console.log(`  Admin:     http://localhost:${PORT}/admin.html`);
+  console.log(`  Report:    http://localhost:${PORT}/r/<slug>\n`);
 });

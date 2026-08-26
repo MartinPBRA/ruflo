@@ -32,6 +32,71 @@ benchmarks.get('/facets', (req, res) => {
   res.json({ categories: facet('category'), brand_categories: facet('brand_category') });
 });
 
+function buildWhere(query, keys = ['source', 'period', 'channel', 'category', 'brand_category', 'country']) {
+  const clauses = [];
+  const params = [];
+  for (const k of keys) {
+    if (query[k]) { clauses.push(`${k} = ?`); params.push(query[k]); }
+  }
+  return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
+}
+
+function aggregateSql(where) {
+  return `
+    SELECT
+      COUNT(*) AS matches,
+      SUM(COALESCE(impressions, 0)) AS impressions,
+      AVG(ecpm_low) AS ecpm_low, AVG(ecpm_high) AS ecpm_high,
+      AVG(ecpc) AS ecpc, AVG(ecpe) AS ecpe,
+      AVG(ctr) AS ctr,
+      AVG(video_completion) AS video_completion,
+      AVG(audio_completion) AS audio_completion
+    FROM benchmarks ${where}
+  `;
+}
+
+benchmarks.get('/aggregate', (req, res) => {
+  const { where, params } = buildWhere(req.query);
+  const summary = db.prepare(aggregateSql(where)).get(...params);
+
+  // Per-channel breakdown. If channel is already filtered, this still returns
+  // just that one channel — useful for the header on channel-specific tabs.
+  const perChannelWhere = buildWhere(req.query, ['source', 'period', 'category', 'brand_category', 'country']);
+  const byChannel = db.prepare(`
+    SELECT channel,
+      COUNT(*) AS matches,
+      SUM(COALESCE(impressions, 0)) AS impressions,
+      AVG(ecpm_low) AS ecpm_low, AVG(ecpm_high) AS ecpm_high,
+      AVG(ecpc) AS ecpc, AVG(ecpe) AS ecpe,
+      AVG(ctr) AS ctr,
+      AVG(video_completion) AS video_completion,
+      AVG(audio_completion) AS audio_completion
+    FROM benchmarks ${perChannelWhere.where}
+    GROUP BY channel ORDER BY channel
+  `).all(...perChannelWhere.params);
+
+  const topSegments = db.prepare(`
+    SELECT channel, category, brand_category, country,
+           impressions, ecpm_low, ecpm_high, ecpc, ecpe, ctr,
+           video_completion, audio_completion
+    FROM benchmarks ${where}
+    ORDER BY COALESCE(impressions, 0) DESC LIMIT 100
+  `).all(...params);
+
+  const byCategory = db.prepare(`
+    SELECT category,
+      COUNT(*) AS matches,
+      SUM(COALESCE(impressions, 0)) AS impressions,
+      AVG(ecpm_low) AS ecpm_low, AVG(ecpm_high) AS ecpm_high,
+      AVG(ecpc) AS ecpc, AVG(ctr) AS ctr,
+      AVG(video_completion) AS video_completion
+    FROM benchmarks ${where} ${where ? 'AND' : 'WHERE'} category IS NOT NULL
+    GROUP BY category ORDER BY impressions DESC LIMIT 15
+  `).all(...params);
+
+  res.json({ summary, by_channel: byChannel, top_segments: topSegments, by_category: byCategory });
+});
+
 benchmarks.get('/', (req, res) => {
   const where = [];
   const params = [];

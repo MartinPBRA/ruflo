@@ -8,7 +8,8 @@
     "start": "node server/index.js",
     "dev": "node --watch server/index.js",
     "seed": "node server/seed.js",
-    "export": "node scripts/export-static.js"
+    "export": "node scripts/export-static.js",
+    "export:dashboard": "node scripts/export-dashboard.js"
   },
   "dependencies": {
     "better-sqlite3": "^11.3.0",
