@@ -1,0 +1,15 @@
+channel,metric,unit,client_value,benchmark_value,industry,better,notes
+Meta,CPM,$,12.40,14.80,Retail,lower,
+Meta,CTR,%,1.85,1.20,Retail,higher,
+Meta,CPA,$,32.10,41.50,Retail,lower,
+Meta,ROAS,x,3.90,2.80,Retail,higher,Strong prospecting performance
+Google Search,CPC,$,1.42,1.85,Retail,lower,
+Google Search,CTR,%,6.20,4.80,Retail,higher,
+Google Search,CVR,%,4.10,3.20,Retail,higher,
+Google Search,ROAS,x,5.20,4.10,Retail,higher,
+TikTok,CPM,$,7.80,9.20,Retail,lower,
+TikTok,CTR,%,1.35,0.90,Retail,higher,
+TikTok,CPA,$,48.00,55.00,Retail,lower,Scaling paused Q3
+LinkedIn,CPM,$,42.00,38.50,B2B,lower,Underperforming
+LinkedIn,CTR,%,0.55,0.45,B2B,higher,
+LinkedIn,CPA,$,180.00,220.00,B2B,lower,

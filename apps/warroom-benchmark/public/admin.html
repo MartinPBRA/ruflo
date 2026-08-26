@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>War Room Benchmark — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/brand.css" />
+</head>
+<body>
+<nav class="wr-nav">
+  <div class="wr-nav-inner">
+    <div class="wr-logo">War Room</div>
+    <div class="wr-nav-meta">Benchmark Admin</div>
+  </div>
+</nav>
+
+<main class="wr-shell wr-admin">
+  <h2>Clients</h2>
+  <div class="wr-panel">
+    <div class="wr-row" style="align-items: flex-end;">
+      <div class="wr-field" style="flex: 2;">
+        <label>Client name</label>
+        <input class="wr-input" id="client-name" placeholder="Acme Corp" />
+      </div>
+      <div class="wr-field" style="flex: 1;">
+        <label>Industry</label>
+        <input class="wr-input" id="client-industry" placeholder="Retail" />
+      </div>
+      <button class="wr-btn" id="create-client">Add Client</button>
+    </div>
+    <table class="wr-table" id="clients-table"><thead><tr><th>Name</th><th>Industry</th><th>Slug</th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <h2>Reports</h2>
+  <div class="wr-panel">
+    <div class="wr-row" style="align-items: flex-end; flex-wrap: wrap;">
+      <div class="wr-field" style="flex: 1; min-width: 180px;">
+        <label>Client</label>
+        <select class="wr-select" id="report-client"></select>
+      </div>
+      <div class="wr-field" style="flex: 2; min-width: 220px;">
+        <label>Title</label>
+        <input class="wr-input" id="report-title" placeholder="Q3 2026 Paid Media Benchmark" />
+      </div>
+      <div class="wr-field" style="min-width: 130px;">
+        <label>Period start</label>
+        <input class="wr-input" id="report-start" type="date" />
+      </div>
+      <div class="wr-field" style="min-width: 130px;">
+        <label>Period end</label>
+        <input class="wr-input" id="report-end" type="date" />
+      </div>
+      <button class="wr-btn" id="create-report">Add Report</button>
+    </div>
+    <table class="wr-table" id="reports-table">
+      <thead><tr><th>Title</th><th>Client</th><th>Period</th><th>Status</th><th>Rows</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="editor" class="wr-panel" style="display:none;">
+    <h2 id="editor-title" style="margin-bottom: 16px;"></h2>
+    <div class="wr-field">
+      <label>Summary (shown to client)</label>
+      <textarea class="wr-textarea" id="editor-summary" rows="2"></textarea>
+    </div>
+    <div class="wr-row" style="margin-bottom: 16px;">
+      <button class="wr-btn secondary" id="save-summary">Save summary</button>
+      <button class="wr-btn" id="toggle-publish">Publish</button>
+      <a class="wr-btn secondary" id="view-link" target="_blank">Open report</a>
+    </div>
+
+    <h3 style="margin-top: 8px;">Upload spreadsheet</h3>
+    <p style="color: var(--wr-fg-muted); font-size: 0.85rem;">
+      CSV or XLSX. Required columns: <code>channel</code>, <code>metric</code>. Optional: <code>unit</code>, <code>client_value</code>, <code>benchmark_value</code>, <code>industry</code>, <code>better</code> (higher|lower), <code>notes</code>.
+    </p>
+    <div class="wr-row">
+      <input type="file" id="upload-file" accept=".csv,.tsv,.xlsx,.xls" class="wr-input" style="flex: 1;" />
+      <label style="display:flex; align-items:center; gap:6px; color: var(--wr-fg-muted);">
+        <input type="checkbox" id="append-mode" /> Append (default replaces)
+      </label>
+      <button class="wr-btn" id="upload-btn">Upload</button>
+    </div>
+    <div id="upload-msg" style="margin-top: 12px; font-family: var(--wr-font-mono); font-size: 0.85rem;"></div>
+
+    <h3 style="margin-top: 24px;">Rows</h3>
+    <table class="wr-table" id="rows-table">
+      <thead><tr><th>Channel</th><th>Metric</th><th>Unit</th><th>Client</th><th>Benchmark</th><th>Industry</th><th>Better</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+
+<script src="/assets/admin.js"></script>
+</body>
+</html>
