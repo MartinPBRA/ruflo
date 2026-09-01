@@ -76,13 +76,13 @@
   overflow: hidden;
 }
 .dash-summary::after {
-  /* subtle rose-gold chevron watermark in the corner */
+  /* subtle rose-gold double-chevron watermark in the corner */
   content: "";
   position: absolute; right: -40px; top: -30px;
   width: 220px; height: 220px;
   background-color: var(--wr-rose-gold);
-  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M2 6 L12 14 L22 6 L22 10 L12 18 L2 10 Z'/></svg>") center/contain no-repeat;
-          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M2 6 L12 14 L22 6 L22 10 L12 18 L2 10 Z'/></svg>") center/contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M2 3 L12 10 L22 3 L22 7 L12 14 L2 7 Z M2 12 L12 19 L22 12 L22 16 L12 23 L2 16 Z'/></svg>") center/contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M2 3 L12 10 L22 3 L22 7 L12 14 L2 7 Z M2 12 L12 19 L22 12 L22 16 L12 23 L2 16 Z'/></svg>") center/contain no-repeat;
   opacity: 0.10; pointer-events: none;
 }
 .dash-summary .brand {
