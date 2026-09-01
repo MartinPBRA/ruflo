@@ -94,7 +94,6 @@ async function load() {
   const data = await fetch('/api/benchmarks/aggregate?' + params).then((r) => r.json());
 
   $('#dash-title').textContent = state.channel === 'Overview' ? 'Platform Benchmarks' : `${state.channel} Benchmarks`;
-  $('#dash-sub').textContent = `StackAdapt · ${state.period} · ${fmtInt(data.summary.matches)} rows · ${fmtInt(data.summary.impressions)} impressions`;
   $('#table-meta').textContent = `Top ${Math.min(data.top_segments.length, 100)} of ${fmtInt(data.summary.matches)} segments (impression-sorted)`;
 
   renderSummary(data.summary);
@@ -202,6 +201,5 @@ $('#f-reset').addEventListener('click', () => {
   load();
 });
 
-$('#footer-date').textContent = new Date().toISOString().slice(0, 10);
 renderTabs();
 loadMeta().then(load);

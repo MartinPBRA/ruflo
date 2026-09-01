@@ -162,7 +162,6 @@ async function load() {
   const data = { summary, by_channel, top_segments, by_category };
 
   $('#dash-title').textContent = state.channel === 'Overview' ? 'Platform Benchmarks' : (state.channel + ' Benchmarks');
-  $('#dash-sub').textContent = 'StackAdapt · ' + state.period + ' · ' + fmtInt(data.summary.matches) + ' rows · ' + fmtInt(data.summary.impressions) + ' impressions';
   $('#table-meta').textContent = 'Top ' + Math.min(data.top_segments.length, 100) + ' of ' + fmtInt(data.summary.matches) + ' segments (impression-sorted)';
 
   renderSummary(data.summary);
