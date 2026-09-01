@@ -96,7 +96,6 @@ function renderSummary(s) {
     <div class="stat"><div class="label">eCPC</div><div class="value">${fmtMoney(s.ecpc)}</div></div>
     <div class="stat"><div class="label">CTR</div><div class="value">${fmtPct(s.ctr)}</div></div>
     <div class="stat"><div class="label">${state.channel === 'Audio' ? 'ACR' : 'VCR'}</div><div class="value">${state.channel === 'Audio' ? fmtPct(s.audio_completion) : fmtPct(s.video_completion)}</div></div>
-    <div class="stat"><div class="label">Segments</div><div class="value">${fmtInt(s.matches)}</div></div>
   `;
 }
 
@@ -116,7 +115,6 @@ function renderTiles(data) {
             <div class="tile-metric"><span class="lbl">eCPM</span><span class="val small">${fmtRange(c.ecpm_low, c.ecpm_high)}</span></div>
             <div class="tile-metric"><span class="lbl">${secondLabel}</span><span class="val small">${secondValue}</span></div>
           </div>
-          <div class="tile-name">${fmtInt(c.matches)} segments · ${fmtInt(c.impressions)} imp</div>
         </div>`;
     }).join('');
   } else {
@@ -128,7 +126,6 @@ function renderTiles(data) {
           <div class="tile-metric"><span class="lbl">eCPM</span><span class="val small">${fmtRange(c.ecpm_low, c.ecpm_high)}</span></div>
           <div class="tile-metric"><span class="lbl">CTR</span><span class="val small">${fmtPct(c.ctr)}</span></div>
         </div>
-        <div class="tile-name">${fmtInt(c.impressions)} imp · ${fmtInt(c.matches)} segments</div>
       </div>
     `).join('') || '<div class="tile w12 ink"><div class="tile-hd">No category breakdown available for this slice.</div></div>';
   }

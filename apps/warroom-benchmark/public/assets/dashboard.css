@@ -68,7 +68,7 @@
   border-radius: var(--wr-radius-lg);
   padding: 28px 32px;
   display: grid;
-  grid-template-columns: 2fr repeat(4, 1fr) 1fr;
+  grid-template-columns: 2fr repeat(4, 1fr);
   gap: 20px;
   color: var(--wr-carrara);
   margin-bottom: 20px;
