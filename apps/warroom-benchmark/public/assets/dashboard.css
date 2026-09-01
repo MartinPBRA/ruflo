@@ -39,9 +39,8 @@
 
 /* ------- Header ------- */
 .dash-header {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  gap: 24px; flex-wrap: wrap;
-  margin-bottom: 24px; position: relative;
+  display: flex; flex-direction: column;
+  gap: 16px; margin-bottom: 24px; position: relative;
 }
 .dash-header h1 { margin: 0 0 4px; font-size: clamp(2rem, 3.5vw, 2.75rem); }
 .dash-sub {
