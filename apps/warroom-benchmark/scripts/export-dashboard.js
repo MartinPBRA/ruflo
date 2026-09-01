@@ -15,17 +15,37 @@ import { db } from '../server/db.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outPath = process.argv[2] || join(__dirname, '..', 'export', 'dashboard.html');
 
-const rows = db.prepare(`
-  SELECT channel, category, brand_category, country,
+// Keep the embedded dataset compact: drop non-filterable columns and
+// round floats to 2dp. 80k+ rows × verbose JSON balloons the file otherwise.
+const round = (n) => (n == null ? null : Math.round(n * 100) / 100);
+const rawRows = db.prepare(`
+  SELECT period, channel, category, brand_category, country, device, video_type,
          impressions, ecpm_low, ecpm_high, ecpc, ecpe, ctr,
          video_completion, audio_completion
   FROM benchmarks
 `).all();
+const rows = rawRows.map((r) => ({
+  period: r.period, channel: r.channel,
+  category: r.category, brand_category: r.brand_category,
+  country: r.country, device: r.device, video_type: r.video_type,
+  impressions: r.impressions,
+  ecpm_low: round(r.ecpm_low), ecpm_high: round(r.ecpm_high),
+  ecpc: round(r.ecpc), ecpe: round(r.ecpe), ctr: round(r.ctr),
+  video_completion: round(r.video_completion),
+  audio_completion: round(r.audio_completion),
+}));
+
+const uniq = (arr) => [...new Set(arr.filter((v) => v != null && v !== ''))];
+const periodPairs = uniq(rows.map((r) => r.period))
+  .map((p) => ({ period: p, sort: rawRows.find((r) => r.period === p)?.period_sort || p }))
+  .sort((a, b) => b.sort.localeCompare(a.sort));
 
 const meta = {
-  countries: [...new Set(rows.map((r) => r.country).filter(Boolean))].sort(),
-  categories: [...new Set(rows.map((r) => r.category).filter(Boolean))].sort(),
-  brand_categories: [...new Set(rows.map((r) => r.brand_category).filter(Boolean))].sort(),
+  periods: periodPairs.map((p) => p.period),
+  countries: uniq(rows.map((r) => r.country)).sort(),
+  channels: uniq(rows.map((r) => r.channel)).sort(),
+  devices: uniq(rows.map((r) => r.device)).sort(),
+  video_types: uniq(rows.map((r) => r.video_type)).sort(),
 };
 
 const brandCss = readFileSync(join(__dirname, '..', 'public', 'assets', 'brand.css'), 'utf8');
@@ -33,42 +53,59 @@ const dashCss = readFileSync(join(__dirname, '..', 'public', 'assets', 'dashboar
 const dashJs = readFileSync(join(__dirname, '..', 'public', 'assets', 'dashboard.js'), 'utf8');
 const dashHtml = readFileSync(join(__dirname, '..', 'public', 'dashboard.html'), 'utf8');
 
-// Strip the raw dashboard.js of its live-fetch calls and inject a
-// client-side aggregator that queries __DATASET__.
+// Rewrite dashboard.js to serve everything from an embedded dataset + facets.
 const bakedJs = dashJs
   .replace(/async function loadMeta\(\)[\s\S]*?await refreshFacets\(\);\n\}/, `
 async function loadMeta() {
-  const country = $('#f-country');
-  country.innerHTML = '<option value="">All</option>' + __META__.countries.map((c) => '<option>' + c + '</option>').join('');
+  meta = __META__;
+  populate('#f-period', meta.periods, meta.periods[0] || '', false);
+  state.period = meta.periods[0] || '';
+  populate('#f-country', meta.countries);
   await refreshFacets();
 }`)
-  .replace(/async function refreshFacets\(\)[\s\S]*?if \(!facets\.brand_categories\.includes\(prevBrand\)\) state\.brand_category = '';\n\}/, `
+  .replace(/async function refreshFacets\(\)[\s\S]*?if \(!facets\.video_types\.includes\(prev\.video_type\)\) state\.video_type = '';\n\}/, `
 async function refreshFacets() {
   const matching = __DATASET__.filter((r) =>
+    (!state.period  || r.period === state.period) &&
     (!state.country || r.country === state.country) &&
-    (state.channel === 'Overview' || r.channel === state.channel));
-  const cats = [...new Set(matching.map((r) => r.category).filter(Boolean))].sort();
-  const brands = [...new Set(matching.map((r) => r.brand_category).filter(Boolean))].sort();
-  const prevCat = state.category, prevBrand = state.brand_category;
-  $('#f-category').innerHTML = '<option value="">All</option>' + cats.map((c) => '<option' + (c === prevCat ? ' selected' : '') + '>' + c + '</option>').join('');
-  $('#f-brand').innerHTML = '<option value="">All</option>' + brands.map((c) => '<option' + (c === prevBrand ? ' selected' : '') + '>' + c + '</option>').join('');
-  if (!cats.includes(prevCat)) state.category = '';
-  if (!brands.includes(prevBrand)) state.brand_category = '';
-}`)
-  .replace(/async function load\(\)[\s\S]*?renderTable\(data\.top_segments\);\n\}/, `
+    (state.channel === 'Overview' || r.channel === state.channel) &&
+    (!state.device  || r.device === state.device) &&
+    (!state.video_type || r.video_type === state.video_type));
+  const facets = {
+    categories:       [...new Set(matching.map((r) => r.category).filter(Boolean))].sort(),
+    brand_categories: [...new Set(matching.map((r) => r.brand_category).filter(Boolean))].sort(),
+    devices:          [...new Set(matching.map((r) => r.device).filter(Boolean))].sort(),
+    video_types:      [...new Set(matching.map((r) => r.video_type).filter(Boolean))].sort(),
+  };
+  const prev = { ...state };
+  populate('#f-category', facets.categories, prev.category);
+  populate('#f-brand', facets.brand_categories, prev.brand_category);
+  populate('#f-device', facets.devices, prev.device);
+  populate('#f-video', facets.video_types, prev.video_type);
+  $('#f-device-wrap').hidden = facets.devices.length === 0;
+  $('#f-video-wrap').hidden  = facets.video_types.length === 0;
+  if (!facets.categories.includes(prev.category)) state.category = '';
+  if (!facets.brand_categories.includes(prev.brand_category)) state.brand_category = '';
+  if (!facets.devices.includes(prev.device)) state.device = '';
+  if (!facets.video_types.includes(prev.video_type)) state.video_type = '';
+}
+
 function avg(arr, key) {
   const vals = arr.map((r) => r[key]).filter((v) => v != null);
   if (!vals.length) return null;
   return vals.reduce((a, b) => a + b, 0) / vals.length;
-}
-
+}`)
+  .replace(/async function load\(\)[\s\S]*?renderTable\(data\.top_segments\);\n\}/, `
 async function load() {
   await refreshFacets();
   const matching = __DATASET__.filter((r) =>
+    (!state.period  || r.period === state.period) &&
     (state.channel === 'Overview' || r.channel === state.channel) &&
     (!state.country || r.country === state.country) &&
     (!state.category || r.category === state.category) &&
-    (!state.brand_category || r.brand_category === state.brand_category));
+    (!state.brand_category || r.brand_category === state.brand_category) &&
+    (!state.device || r.device === state.device) &&
+    (!state.video_type || r.video_type === state.video_type));
 
   const summary = {
     matches: matching.length,
@@ -81,9 +118,12 @@ async function load() {
   };
 
   const channelWide = __DATASET__.filter((r) =>
+    (!state.period || r.period === state.period) &&
     (!state.country || r.country === state.country) &&
     (!state.category || r.category === state.category) &&
-    (!state.brand_category || r.brand_category === state.brand_category));
+    (!state.brand_category || r.brand_category === state.brand_category) &&
+    (!state.device || r.device === state.device) &&
+    (!state.video_type || r.video_type === state.video_type));
   const byChannelMap = new Map();
   for (const r of channelWide) {
     if (!byChannelMap.has(r.channel)) byChannelMap.set(r.channel, []);
@@ -122,7 +162,7 @@ async function load() {
   const data = { summary, by_channel, top_segments, by_category };
 
   $('#dash-title').textContent = state.channel === 'Overview' ? 'Platform Benchmarks' : (state.channel + ' Benchmarks');
-  $('#dash-sub').textContent = 'StackAdapt · May 2026 · ' + fmtInt(data.summary.matches) + ' rows · ' + fmtInt(data.summary.impressions) + ' impressions';
+  $('#dash-sub').textContent = 'StackAdapt · ' + state.period + ' · ' + fmtInt(data.summary.matches) + ' rows · ' + fmtInt(data.summary.impressions) + ' impressions';
   $('#table-meta').textContent = 'Top ' + Math.min(data.top_segments.length, 100) + ' of ' + fmtInt(data.summary.matches) + ' segments (impression-sorted)';
 
   renderSummary(data.summary);
@@ -130,10 +170,9 @@ async function load() {
   renderTable(data.top_segments);
 }`);
 
-// Extract just the <body> markup from dashboard.html
 const bodyMatch = dashHtml.match(/<body>([\s\S]*)<\/body>/);
 const bodyMarkup = bodyMatch[1]
-  .replace(/<link rel="stylesheet"[^>]*\/>/g, '')
+  .replace(/<link rel="stylesheet"[^>]*\/?>/g, '')
   .replace(/<script src="\/assets\/dashboard\.js"><\/script>/, '');
 
 const html = `<!DOCTYPE html>
@@ -144,7 +183,7 @@ const html = `<!DOCTYPE html>
 <title>War Room — Benchmark Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,700;0,800;1,400&family=Noto+Sans:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>${brandCss}</style>
 <style>${dashCss}</style>
 </head>
@@ -160,4 +199,4 @@ ${bakedJs}
 `;
 
 writeFileSync(outPath, html);
-console.log(`Wrote ${outPath} — ${(html.length / 1024).toFixed(1)} KB, ${rows.length} rows embedded.`);
+console.log(`Wrote ${outPath} — ${(html.length / 1024).toFixed(1)} KB, ${rows.length} rows embedded, ${meta.periods.length} periods.`);

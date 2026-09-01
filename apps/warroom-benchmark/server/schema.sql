@@ -37,15 +37,21 @@ CREATE INDEX IF NOT EXISTS idx_report_rows_report ON report_rows(report_id);
 CREATE INDEX IF NOT EXISTS idx_reports_client ON reports(client_id);
 
 -- Industry benchmark library (e.g. StackAdapt monthly).
--- Keyed by channel x category x brand_category x country x source x period.
+-- Keyed by channel x category x brand_category x country x device x
+-- video_type x source x period. Extra dims (device, video_type) are
+-- only present on some Video/CTV files but included in the unique key
+-- so multi-dimensional rows don't collide during load.
 CREATE TABLE IF NOT EXISTS benchmarks (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   source TEXT NOT NULL,
   period TEXT NOT NULL,
+  period_sort TEXT,
   channel TEXT NOT NULL,
   category TEXT,
   brand_category TEXT,
   country TEXT,
+  device TEXT,
+  video_type TEXT,
   impressions INTEGER,
   ecpm_low REAL,
   ecpm_high REAL,
@@ -54,13 +60,14 @@ CREATE TABLE IF NOT EXISTS benchmarks (
   ctr REAL,
   video_completion REAL,
   audio_completion REAL,
-  UNIQUE(source, period, channel, category, brand_category, country)
+  UNIQUE(source, period, channel, category, brand_category, country, device, video_type)
 );
 
 CREATE INDEX IF NOT EXISTS idx_benchmarks_channel ON benchmarks(channel);
 CREATE INDEX IF NOT EXISTS idx_benchmarks_country ON benchmarks(country);
 CREATE INDEX IF NOT EXISTS idx_benchmarks_category ON benchmarks(category);
 CREATE INDEX IF NOT EXISTS idx_benchmarks_brand ON benchmarks(brand_category);
+CREATE INDEX IF NOT EXISTS idx_benchmarks_period ON benchmarks(period_sort);
 
 -- Note: reports gets several optional benchmark_* columns via idempotent
 -- ALTER TABLE calls in db.js, since SQLite lacks ADD COLUMN IF NOT EXISTS.

@@ -12,16 +12,19 @@ export const benchmarks = Router();
 benchmarks.get('/meta', (_req, res) => {
   res.json({
     sources: db.prepare('SELECT DISTINCT source FROM benchmarks ORDER BY source').all().map((r) => r.source),
-    periods: db.prepare('SELECT DISTINCT period FROM benchmarks ORDER BY period').all().map((r) => r.period),
+    // Chronological, most-recent first, via period_sort (YYYY-MM).
+    periods: db.prepare(`SELECT period FROM (SELECT DISTINCT period, period_sort FROM benchmarks) ORDER BY period_sort DESC`).all().map((r) => r.period),
     channels: db.prepare('SELECT DISTINCT channel FROM benchmarks ORDER BY channel').all().map((r) => r.channel),
     countries: db.prepare(`SELECT DISTINCT country FROM benchmarks WHERE country IS NOT NULL ORDER BY country`).all().map((r) => r.country),
+    devices:   db.prepare(`SELECT DISTINCT device FROM benchmarks WHERE device IS NOT NULL ORDER BY device`).all().map((r) => r.device),
+    video_types: db.prepare(`SELECT DISTINCT video_type FROM benchmarks WHERE video_type IS NOT NULL ORDER BY video_type`).all().map((r) => r.video_type),
   });
 });
 
 benchmarks.get('/facets', (req, res) => {
   const clauses = [];
   const params = [];
-  for (const k of ['source', 'period', 'channel', 'country']) {
+  for (const k of ['source', 'period', 'channel', 'country', 'device', 'video_type']) {
     if (req.query[k]) { clauses.push(`${k} = ?`); params.push(req.query[k]); }
   }
   const facet = (col) => {
@@ -29,10 +32,15 @@ benchmarks.get('/facets', (req, res) => {
     const sql = `SELECT DISTINCT ${col} AS v FROM benchmarks WHERE ${all.join(' AND ')} ORDER BY ${col}`;
     return db.prepare(sql).all(...params).map((r) => r.v);
   };
-  res.json({ categories: facet('category'), brand_categories: facet('brand_category') });
+  res.json({
+    categories: facet('category'),
+    brand_categories: facet('brand_category'),
+    devices: facet('device'),
+    video_types: facet('video_type'),
+  });
 });
 
-function buildWhere(query, keys = ['source', 'period', 'channel', 'category', 'brand_category', 'country']) {
+function buildWhere(query, keys = ['source', 'period', 'channel', 'category', 'brand_category', 'country', 'device', 'video_type']) {
   const clauses = [];
   const params = [];
   for (const k of keys) {
@@ -61,7 +69,7 @@ benchmarks.get('/aggregate', (req, res) => {
 
   // Per-channel breakdown. If channel is already filtered, this still returns
   // just that one channel — useful for the header on channel-specific tabs.
-  const perChannelWhere = buildWhere(req.query, ['source', 'period', 'category', 'brand_category', 'country']);
+  const perChannelWhere = buildWhere(req.query, ['source', 'period', 'category', 'brand_category', 'country', 'device', 'video_type']);
   const byChannel = db.prepare(`
     SELECT channel,
       COUNT(*) AS matches,
@@ -76,7 +84,7 @@ benchmarks.get('/aggregate', (req, res) => {
   `).all(...perChannelWhere.params);
 
   const topSegments = db.prepare(`
-    SELECT channel, category, brand_category, country,
+    SELECT channel, category, brand_category, country, device, video_type,
            impressions, ecpm_low, ecpm_high, ecpc, ecpe, ctr,
            video_completion, audio_completion
     FROM benchmarks ${where}

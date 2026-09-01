@@ -33,6 +33,10 @@
     </div>
     <div class="dash-filters">
       <label class="dash-filter">
+        <span>Period</span>
+        <select id="f-period"></select>
+      </label>
+      <label class="dash-filter">
         <span>Country</span>
         <select id="f-country"><option value="">All</option></select>
       </label>
@@ -43,6 +47,14 @@
       <label class="dash-filter">
         <span>Brand Category</span>
         <select id="f-brand"><option value="">All</option></select>
+      </label>
+      <label class="dash-filter" id="f-device-wrap" hidden>
+        <span>Device</span>
+        <select id="f-device"><option value="">All</option></select>
+      </label>
+      <label class="dash-filter" id="f-video-wrap" hidden>
+        <span>Video Type</span>
+        <select id="f-video"><option value="">All</option></select>
       </label>
       <button class="wr-btn secondary" id="f-reset" style="align-self:end;">Reset</button>
     </div>

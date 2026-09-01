@@ -21,6 +21,15 @@ for (const col of [
   if (!reportCols.has(col)) db.exec(`ALTER TABLE reports ADD COLUMN ${col} TEXT`);
 }
 
+// Migrate the benchmarks table if it predates device/video_type/period_sort.
+const benchmarkCols = new Set(db.prepare(`PRAGMA table_info(benchmarks)`).all().map((c) => c.name));
+if (benchmarkCols.size && (!benchmarkCols.has('device') || !benchmarkCols.has('video_type') || !benchmarkCols.has('period_sort'))) {
+  // Rebuild with new unique key. Cheaper than migrating in place — the
+  // library reloads from CSV on demand.
+  db.exec('DROP TABLE IF EXISTS benchmarks');
+  db.exec(schema);
+}
+
 export function slugify(input) {
   return String(input)
     .toLowerCase()

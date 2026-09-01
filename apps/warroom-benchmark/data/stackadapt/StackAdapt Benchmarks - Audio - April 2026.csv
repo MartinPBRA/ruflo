@@ -1,0 +1,206 @@
+Category,Country,Device,Impressions,eCPM,eCPC,eCPE,CTR,Video Completion Rate,Audio Completion Rate
+Arts & Entertainment (Legacy),Canada,Mobile Web,"491,743",$20.59  ~ $21.16 ,$8.34 ,$325.99 ,0.25%,N/A,94.89%
+Arts & Entertainment (Legacy),Canada,Tablet,"24,334",$19.94  ~ $20.41 ,$7.62 ,$167.54 ,0.27%,N/A,94.78%
+Arts & Entertainment (Legacy),Canada,Connected Device,"92,355",$21.61  ~ $21.73 ,N/A,N/A,N/A,N/A,99.05%
+Arts & Entertainment (Legacy),Canada,Desktop,"219,881",$20.86  ~ $21.06 ,$10.78 ,$146.25 ,0.19%,N/A,97.24%
+Arts & Entertainment (Legacy),United States,Tablet,"501,682",$25.45  ~ $26.15 ,$43.21 ,"$1,383.75 ",0.06%,N/A,95.50%
+Arts & Entertainment (Legacy),United States,Others,"14,274",$26.09  ~ $26.84 ,N/A,N/A,N/A,N/A,98.01%
+Arts & Entertainment (Legacy),United States,Connected Device,"7,980,041",$21.42  ~ $22.58 ,N/A,N/A,N/A,N/A,99.41%
+Arts & Entertainment (Legacy),United States,Desktop,"9,585,557",$22.98  ~ $24.20 ,$140.22 ,"$2,568.25 ",0.02%,N/A,98.99%
+Arts & Entertainment (Legacy),United States,Mobile Web,"7,308,288",$25.95  ~ $26.51 ,$42.99 ,$748.88 ,0.06%,N/A,95.65%
+Automotive (Legacy),Canada,Connected Device,"5,596",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Automotive (Legacy),Canada,Desktop,"4,495",$24.54  ~ $24.86 ,N/A,N/A,N/A,N/A,92.37%
+Automotive (Legacy),Canada,Mobile Web,"10,538",$23.73  ~ $23.79 ,$518.15 ,N/A,0.00%,N/A,84.25%
+Automotive (Legacy),Canada,Tablet,499,$24.01  ~ $24.44 ,N/A,N/A,N/A,N/A,84.33%
+Automotive (Legacy),United States,Desktop,"5,317",$20.44  ~ $21.16 ,$146.50 ,N/A,0.01%,N/A,90.69%
+Automotive (Legacy),United States,Mobile Web,"8,811",$20.99  ~ $23.05 ,"$1,242.00 ",N/A,0.00%,N/A,83.51%
+Automotive (Legacy),United States,Tablet,377,$20.98  ~ $21.89 ,N/A,N/A,N/A,N/A,81.44%
+Automotive (Legacy),United States,Others,2,$37.51  ~ $37.51 ,N/A,N/A,N/A,N/A,100.00%
+Automotive (Legacy),United States,Connected Device,58,$32.39  ~ $35.07 ,N/A,N/A,N/A,N/A,99.11%
+Business (Legacy),Canada,Connected Device,"8,591",$23.21  ~ $23.68 ,N/A,N/A,N/A,N/A,98.29%
+Business (Legacy),Canada,Desktop,"6,237",$24.16  ~ $24.50 ,N/A,N/A,N/A,N/A,91.66%
+Business (Legacy),Canada,Mobile Web,"15,380",$23.18  ~ $23.27 ,$377.42 ,N/A,0.01%,N/A,82.77%
+Business (Legacy),Canada,Tablet,805,$23.41  ~ $23.82 ,$66.33 ,N/A,0.04%,N/A,82.94%
+Business (Legacy),United States,Mobile Web,"292,360",$25.44  ~ $25.51 ,"$4,074.64 ",N/A,0.00%,N/A,96.46%
+Business (Legacy),United States,Tablet,"16,735",$23.71  ~ $23.73 ,$444.79 ,N/A,0.01%,N/A,97.19%
+Business (Legacy),United States,Others,923,$37.86  ~ $37.86 ,N/A,N/A,N/A,N/A,100.00%
+Business (Legacy),United States,Connected Device,"5,904",$22.03  ~ $23.31 ,N/A,N/A,N/A,N/A,99.45%
+Business (Legacy),United States,Desktop,"39,441",$28.63  ~ $29.81 ,"$4,922.83 ",N/A,0.00%,N/A,94.39%
+Careers (Legacy),Canada,Connected Device,"5,589",$24.68  ~ $25.21 ,N/A,N/A,N/A,N/A,97.84%
+Careers (Legacy),Canada,Desktop,"4,554",$24.69  ~ $24.98 ,N/A,N/A,N/A,N/A,92.42%
+Careers (Legacy),Canada,Mobile Web,"10,727",$23.72  ~ $23.78 ,"$1,065.53 ",N/A,0.00%,N/A,83.30%
+Careers (Legacy),Canada,Tablet,481,$23.94  ~ $24.19 ,N/A,N/A,N/A,N/A,83.25%
+Careers (Legacy),United States,Mobile Web,"17,240",$21.27  ~ $22.53 ,"$1,153.81 ",N/A,0.00%,N/A,81.25%
+Careers (Legacy),United States,Tablet,680,$21.43  ~ $22.03 ,N/A,N/A,N/A,N/A,78.99%
+Careers (Legacy),United States,Connected Device,62,$35.20  ~ $37.04 ,N/A,N/A,N/A,N/A,98.82%
+Careers (Legacy),United States,Desktop,"6,815",$20.56  ~ $21.20 ,$284.74 ,N/A,0.01%,N/A,91.25%
+Education (Legacy),United States,Connected Device,"1,326",$21.47  ~ $21.67 ,N/A,N/A,N/A,N/A,99.66%
+Education (Legacy),United States,Desktop,"18,990",$20.43  ~ $21.01 ,"$1,033.26 ",N/A,0.00%,N/A,93.54%
+Education (Legacy),United States,Mobile Web,"36,496",$21.62  ~ $22.30 ,"$2,336.59 ",N/A,0.00%,N/A,82.98%
+Education (Legacy),United States,Tablet,907,$21.17  ~ $21.92 ,N/A,N/A,N/A,N/A,78.94%
+Education (Legacy),United States,Others,11,$37.50  ~ $37.50 ,N/A,N/A,N/A,N/A,100.00%
+Education (Legacy),Canada,Connected Device,"5,589",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Education (Legacy),Canada,Desktop,"4,778",$24.64  ~ $24.95 ,$326.76 ,N/A,0.01%,N/A,92.46%
+Education (Legacy),Canada,Mobile Web,"11,140",$23.72  ~ $23.78 ,$527.35 ,N/A,0.00%,N/A,83.17%
+Education (Legacy),Canada,Tablet,497,$24.21  ~ $24.47 ,N/A,N/A,N/A,N/A,81.11%
+Family & Parenting (Legacy),Canada,Mobile Web,"11,510",$23.61  ~ $23.71 ,$277.27 ,N/A,0.01%,N/A,83.09%
+Family & Parenting (Legacy),Canada,Tablet,611,$23.63  ~ $24.03 ,N/A,N/A,N/A,N/A,83.54%
+Family & Parenting (Legacy),Canada,Connected Device,"5,589",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.78%
+Family & Parenting (Legacy),Canada,Desktop,"5,132",$24.28  ~ $24.61 ,$117.24 ,N/A,0.02%,N/A,91.67%
+Family & Parenting (Legacy),United States,Others,11,$37.51  ~ $37.51 ,N/A,N/A,N/A,N/A,100.00%
+Family & Parenting (Legacy),United States,Connected Device,69,$34.71  ~ $36.21 ,N/A,N/A,N/A,N/A,95.96%
+Family & Parenting (Legacy),United States,Desktop,"12,182",$20.28  ~ $21.01 ,$137.05 ,N/A,0.02%,N/A,91.37%
+Family & Parenting (Legacy),United States,Mobile Web,"28,879",$20.55  ~ $21.89 ,$209.90 ,N/A,0.01%,N/A,81.06%
+Family & Parenting (Legacy),United States,Tablet,"1,334",$20.72  ~ $21.65 ,$39.80 ,N/A,0.05%,N/A,82.35%
+Food & Drink (Legacy),Canada,Mobile Web,"11,066",$23.74  ~ $23.77 ,$562.54 ,N/A,0.00%,N/A,82.16%
+Food & Drink (Legacy),Canada,Tablet,523,$23.76  ~ $24.16 ,$49.33 ,N/A,0.05%,N/A,82.67%
+Food & Drink (Legacy),Canada,Connected Device,"5,589",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Food & Drink (Legacy),Canada,Desktop,"4,657",$24.40  ~ $24.74 ,N/A,N/A,N/A,N/A,91.46%
+Food & Drink (Legacy),United States,Connected Device,63,$32.39  ~ $35.06 ,N/A,N/A,N/A,N/A,98.02%
+Food & Drink (Legacy),United States,Desktop,"16,697",$20.94  ~ $21.44 ,"$1,226.63 ",N/A,0.00%,N/A,94.03%
+Food & Drink (Legacy),United States,Mobile Web,"27,502",$22.49  ~ $23.38 ,"$2,572.18 ",N/A,0.00%,N/A,87.23%
+Food & Drink (Legacy),United States,Tablet,"1,669",$24.55  ~ $24.70 ,N/A,N/A,N/A,N/A,84.06%
+Food & Drink (Legacy),United States,Others,5,$37.51  ~ $37.51 ,N/A,N/A,N/A,N/A,100.00%
+Health & Fitness (Legacy),United States,Mobile Web,"10,238",$20.92  ~ $22.86 ,N/A,N/A,N/A,N/A,83.13%
+Health & Fitness (Legacy),United States,Tablet,307,$21.30  ~ $22.12 ,$43.81 ,N/A,0.05%,N/A,74.00%
+Health & Fitness (Legacy),United States,Connected Device,92,$28.22  ~ $33.31 ,N/A,N/A,N/A,N/A,83.15%
+Health & Fitness (Legacy),United States,Desktop,"5,738",$20.31  ~ $20.97 ,N/A,N/A,N/A,N/A,92.92%
+Health & Fitness (Legacy),Canada,Connected Device,"5,589",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Health & Fitness (Legacy),Canada,Desktop,"4,663",$24.45  ~ $24.80 ,$333.95 ,N/A,0.01%,N/A,92.02%
+Health & Fitness (Legacy),Canada,Mobile Web,"11,123",$23.82  ~ $23.83 ,$542.90 ,N/A,0.00%,N/A,82.42%
+Health & Fitness (Legacy),Canada,Tablet,529,$24.24  ~ $24.55 ,$44.45 ,N/A,0.06%,N/A,82.74%
+Hobbies & Interests (Legacy),Canada,Connected Device,"5,951",$24.82  ~ $25.32 ,N/A,N/A,N/A,N/A,97.83%
+Hobbies & Interests (Legacy),Canada,Desktop,"5,738",$24.28  ~ $24.51 ,$351.12 ,N/A,0.01%,N/A,92.00%
+Hobbies & Interests (Legacy),Canada,Mobile Web,"17,789",$23.59  ~ $23.70 ,$55.72 ,$383.83 ,0.04%,N/A,84.34%
+Hobbies & Interests (Legacy),Canada,Tablet,"1,022",$24.31  ~ $24.52 ,$43.62 ,N/A,0.06%,N/A,82.07%
+Hobbies & Interests (Legacy),United States,Connected Device,"109,268",$20.84  ~ $22.34 ,N/A,N/A,N/A,N/A,99.38%
+Hobbies & Interests (Legacy),United States,Desktop,"68,553",$22.61  ~ $23.39 ,"$1,461.00 ",N/A,0.00%,N/A,93.22%
+Hobbies & Interests (Legacy),United States,Mobile Web,"1,905,606",$23.00  ~ $23.12 ,$63.81 ,$350.12 ,0.04%,N/A,84.07%
+Hobbies & Interests (Legacy),United States,Tablet,"60,244",$24.65  ~ $25.22 ,$27.27 ,N/A,0.09%,N/A,83.36%
+Hobbies & Interests (Legacy),United States,Others,923,$20.25  ~ $20.25 ,N/A,N/A,N/A,N/A,100.00%
+Home & Garden (Legacy),United States,Others,479,$37.83  ~ $37.83 ,N/A,N/A,N/A,N/A,100.00%
+Home & Garden (Legacy),United States,Desktop,"7,812",$20.22  ~ $21.03 ,$472.37 ,N/A,0.00%,N/A,90.45%
+Home & Garden (Legacy),United States,Mobile Web,"12,733",$20.89  ~ $22.99 ,$654.86 ,N/A,0.00%,N/A,82.30%
+Home & Garden (Legacy),United States,Connected Device,"4,248",$20.22  ~ $20.98 ,N/A,N/A,N/A,N/A,98.94%
+Home & Garden (Legacy),United States,Tablet,443,$20.28  ~ $21.47 ,N/A,N/A,N/A,N/A,82.91%
+Home & Garden (Legacy),Canada,Tablet,694,$23.96  ~ $24.33 ,N/A,N/A,N/A,N/A,83.73%
+Home & Garden (Legacy),Canada,Connected Device,"5,622",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Home & Garden (Legacy),Canada,Desktop,"4,599",$24.53  ~ $24.83 ,N/A,N/A,N/A,N/A,92.28%
+Home & Garden (Legacy),Canada,Mobile Web,"11,504",$23.77  ~ $23.82 ,$513.98 ,N/A,0.00%,N/A,84.23%
+"Law, Gov't & Politics (Legacy)",Canada,Connected Device,"9,031",$23.45  ~ $23.76 ,N/A,N/A,N/A,N/A,98.23%
+"Law, Gov't & Politics (Legacy)",Canada,Desktop,"5,289",$24.14  ~ $24.46 ,$384.37 ,N/A,0.01%,N/A,91.06%
+"Law, Gov't & Politics (Legacy)",Canada,Mobile Web,"13,053",$23.33  ~ $23.42 ,$460.61 ,$855.25 ,0.01%,N/A,80.25%
+"Law, Gov't & Politics (Legacy)",Canada,Tablet,683,$23.41  ~ $23.68 ,N/A,N/A,N/A,N/A,83.11%
+"Law, Gov't & Politics (Legacy)",United States,Desktop,"36,275",$20.94  ~ $21.36 ,$810.18 ,N/A,0.00%,N/A,91.12%
+"Law, Gov't & Politics (Legacy)",United States,Mobile Web,"47,358",$21.30  ~ $21.95 ,$494.54 ,N/A,0.00%,N/A,79.62%
+"Law, Gov't & Politics (Legacy)",United States,Connected Device,"25,753",$22.50  ~ $23.68 ,N/A,N/A,N/A,N/A,99.47%
+"Law, Gov't & Politics (Legacy)",United States,Tablet,"2,422",$21.53  ~ $21.91 ,N/A,N/A,N/A,N/A,83.54%
+"Law, Gov't & Politics (Legacy)",United States,Others,14,$38.11  ~ $38.11 ,N/A,N/A,N/A,N/A,100.00%
+News (Legacy),Canada,Mobile Web,"94,173",$20.83  ~ $20.89 ,$387.19 ,"$1,658.12 ",0.01%,N/A,91.30%
+News (Legacy),Canada,Tablet,"4,448",$21.32  ~ $21.46 ,$359.48 ,N/A,0.01%,N/A,90.96%
+News (Legacy),Canada,Connected Device,"36,373",$21.88  ~ $21.94 ,N/A,N/A,N/A,N/A,99.20%
+News (Legacy),Canada,Desktop,"28,218",$21.78  ~ $21.98 ,$319.24 ,N/A,0.01%,N/A,94.33%
+News (Legacy),United States,Connected Device,"603,897",$21.87  ~ $22.48 ,N/A,N/A,N/A,N/A,99.48%
+News (Legacy),United States,Desktop,"1,009,191",$22.27  ~ $22.29 ,"$3,417.03 ",N/A,0.00%,N/A,93.82%
+News (Legacy),United States,Mobile Web,"1,132,621",$23.65  ~ $23.68 ,"$2,736.67 ",N/A,0.00%,N/A,88.68%
+News (Legacy),United States,Tablet,"54,858",$22.97  ~ $23.03 ,"$2,293.74 ",N/A,0.00%,N/A,89.14%
+News (Legacy),United States,Others,"1,603",$34.79  ~ $34.79 ,N/A,N/A,N/A,N/A,99.30%
+Personal Finance (Legacy),Canada,Mobile Web,"40,371",$22.55  ~ $22.69 ,$904.62 ,N/A,0.00%,N/A,91.84%
+Personal Finance (Legacy),Canada,Tablet,871,$24.17  ~ $24.37 ,$79.86 ,N/A,0.03%,N/A,87.93%
+Personal Finance (Legacy),Canada,Connected Device,"5,780",$24.77  ~ $25.35 ,N/A,N/A,N/A,N/A,97.87%
+Personal Finance (Legacy),Canada,Desktop,"5,305",$24.50  ~ $24.79 ,N/A,N/A,N/A,N/A,92.97%
+Personal Finance (Legacy),United States,Connected Device,"7,747",$32.24  ~ $33.15 ,N/A,N/A,N/A,N/A,99.98%
+Personal Finance (Legacy),United States,Desktop,"32,152",$22.23  ~ $22.26 ,"$1,417.88 ",N/A,0.00%,N/A,87.66%
+Personal Finance (Legacy),United States,Mobile Web,"315,644",$24.53  ~ $24.58 ,"$1,881.97 ",N/A,0.00%,N/A,87.96%
+Personal Finance (Legacy),United States,Tablet,"4,473",$23.27  ~ $23.28 ,N/A,N/A,N/A,N/A,85.82%
+Personal Finance (Legacy),United States,Others,"2,137",$22.56  ~ $22.63 ,N/A,N/A,N/A,N/A,99.96%
+Pets (Legacy),Canada,Connected Device,"5,592",$24.92  ~ $25.45 ,N/A,N/A,N/A,N/A,97.80%
+Pets (Legacy),Canada,Desktop,"4,709",$24.77  ~ $25.05 ,$318.77 ,N/A,0.01%,N/A,92.95%
+Pets (Legacy),Canada,Mobile Web,"10,507",$23.87  ~ $23.89 ,N/A,N/A,N/A,N/A,84.50%
+Pets (Legacy),Canada,Tablet,466,$24.60  ~ $24.91 ,N/A,N/A,N/A,N/A,84.50%
+Pets (Legacy),United States,Desktop,"4,212",$20.23  ~ $20.94 ,$136.91 ,N/A,0.02%,N/A,95.04%
+Pets (Legacy),United States,Mobile Web,"8,664",$20.99  ~ $23.78 ,$316.58 ,N/A,0.01%,N/A,86.78%
+Pets (Legacy),United States,Tablet,383,$20.79  ~ $22.14 ,N/A,N/A,N/A,N/A,90.07%
+Pets (Legacy),United States,Connected Device,187,$20.99  ~ $21.16 ,N/A,N/A,N/A,N/A,99.68%
+Pets (Legacy),United States,Others,2,$0.00  ~ $0.00 ,N/A,N/A,N/A,N/A,N/A
+Real Estate (Legacy),Canada,Desktop,"4,603",$24.46  ~ $24.78 ,$342.88 ,N/A,0.01%,N/A,92.19%
+Real Estate (Legacy),Canada,Mobile Web,"10,986",$23.48  ~ $23.57 ,"$1,189.09 ",N/A,0.00%,N/A,82.51%
+Real Estate (Legacy),Canada,Tablet,572,$23.32  ~ $23.62 ,N/A,N/A,N/A,N/A,83.67%
+Real Estate (Legacy),Canada,Connected Device,"5,589",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Real Estate (Legacy),United States,Connected Device,59,$26.65  ~ $27.39 ,N/A,N/A,N/A,N/A,94.98%
+Real Estate (Legacy),United States,Desktop,"6,929",$20.83  ~ $21.57 ,N/A,N/A,N/A,N/A,86.91%
+Real Estate (Legacy),United States,Mobile Web,"19,124",$20.76  ~ $22.18 ,"$1,189.59 ",N/A,0.00%,N/A,80.14%
+Real Estate (Legacy),United States,Tablet,903,$20.43  ~ $21.48 ,N/A,N/A,N/A,N/A,82.91%
+Real Estate (Legacy),United States,Others,2,$37.51  ~ $37.51 ,N/A,N/A,N/A,N/A,100.00%
+Religion & Spirituality (Legacy),United States,Desktop,"6,452",$21.29  ~ $21.69 ,$164.74 ,N/A,0.01%,N/A,95.65%
+Religion & Spirituality (Legacy),United States,Mobile Web,"12,661",$24.21  ~ $25.64 ,$372.47 ,N/A,0.01%,N/A,91.15%
+Religion & Spirituality (Legacy),United States,Tablet,547,$25.80  ~ $26.03 ,N/A,N/A,N/A,N/A,89.17%
+Religion & Spirituality (Legacy),United States,Others,27,$37.51  ~ $37.51 ,N/A,N/A,N/A,N/A,100.00%
+Religion & Spirituality (Legacy),United States,Connected Device,"5,452",$26.89  ~ $28.94 ,N/A,N/A,N/A,N/A,98.73%
+Religion & Spirituality (Legacy),Canada,Desktop,"4,461",$24.85  ~ $25.13 ,N/A,N/A,N/A,N/A,93.00%
+Religion & Spirituality (Legacy),Canada,Mobile Web,"10,375",$23.91  ~ $23.92 ,N/A,N/A,N/A,N/A,84.22%
+Religion & Spirituality (Legacy),Canada,Tablet,453,$24.82  ~ $25.07 ,N/A,N/A,N/A,N/A,84.27%
+Religion & Spirituality (Legacy),Canada,Connected Device,"5,590",$24.94  ~ $25.46 ,N/A,N/A,N/A,N/A,97.79%
+Science (Legacy),Canada,Connected Device,"6,870",$23.96  ~ $24.39 ,N/A,N/A,N/A,N/A,98.17%
+Science (Legacy),Canada,Desktop,"4,976",$24.52  ~ $24.83 ,N/A,N/A,N/A,N/A,92.66%
+Science (Legacy),Canada,Mobile Web,"13,106",$23.71  ~ $23.77 ,N/A,N/A,N/A,N/A,83.83%
+Science (Legacy),Canada,Tablet,828,$24.44  ~ $24.71 ,N/A,N/A,N/A,N/A,83.86%
+Science (Legacy),United States,Others,"1,188",$37.52  ~ $37.52 ,N/A,N/A,N/A,N/A,100.00%
+Science (Legacy),United States,Connected Device,"3,102",$21.38  ~ $22.20 ,N/A,N/A,N/A,N/A,99.50%
+Science (Legacy),United States,Desktop,"12,199",$21.53  ~ $21.81 ,$126.72 ,N/A,0.02%,N/A,85.78%
+Science (Legacy),United States,Mobile Web,"16,881",$21.88  ~ $23.20 ,$206.98 ,N/A,0.01%,N/A,82.36%
+Science (Legacy),United States,Tablet,625,$21.00  ~ $21.82 ,N/A,N/A,N/A,N/A,79.73%
+Shopping (Legacy),Canada,Connected Device,"5,589",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Shopping (Legacy),Canada,Desktop,"4,602",$24.52  ~ $24.85 ,$338.05 ,N/A,0.01%,N/A,92.01%
+Shopping (Legacy),Canada,Mobile Web,"10,878",$23.66  ~ $23.74 ,N/A,N/A,N/A,N/A,83.23%
+Shopping (Legacy),Canada,Tablet,514,$24.31  ~ $24.66 ,N/A,N/A,N/A,N/A,82.89%
+Shopping (Legacy),United States,Mobile Web,"11,177",$20.80  ~ $22.28 ,N/A,N/A,N/A,N/A,78.75%
+Shopping (Legacy),United States,Tablet,408,$19.98  ~ $21.12 ,N/A,N/A,N/A,N/A,76.88%
+Shopping (Legacy),United States,Others,15,$37.50  ~ $37.50 ,N/A,N/A,N/A,N/A,100.00%
+Shopping (Legacy),United States,Connected Device,75,$37.02  ~ $37.85 ,N/A,N/A,N/A,N/A,98.82%
+Shopping (Legacy),United States,Desktop,"6,101",$20.53  ~ $21.23 ,$216.38 ,N/A,0.01%,N/A,90.48%
+Society (Legacy),Canada,Tablet,989,$22.88  ~ $23.24 ,$37.29 ,N/A,0.06%,N/A,85.12%
+Society (Legacy),Canada,Connected Device,"16,265",$22.43  ~ $22.72 ,N/A,N/A,N/A,N/A,98.90%
+Society (Legacy),Canada,Desktop,"7,980",$23.61  ~ $23.76 ,$443.02 ,N/A,0.01%,N/A,92.48%
+Society (Legacy),Canada,Mobile Web,"17,532",$23.27  ~ $23.34 ,$468.24 ,$876.27 ,0.00%,N/A,82.94%
+Society (Legacy),United States,Mobile Web,"112,352",$24.60  ~ $25.06 ,$322.15 ,N/A,0.01%,N/A,86.00%
+Society (Legacy),United States,Tablet,"5,642",$22.28  ~ $22.44 ,N/A,N/A,N/A,N/A,85.90%
+Society (Legacy),United States,Others,"1,567",$42.88  ~ $42.88 ,N/A,N/A,N/A,N/A,98.91%
+Society (Legacy),United States,Connected Device,"81,781",$20.56  ~ $21.22 ,N/A,N/A,N/A,N/A,99.42%
+Society (Legacy),United States,Desktop,"88,297",$21.45  ~ $21.47 ,"$1,268.19 ",N/A,0.00%,N/A,93.56%
+Sports (Legacy),Canada,Mobile Web,"19,067",$23.27  ~ $23.35 ,$21.54 ,$734.22 ,0.11%,N/A,85.21%
+Sports (Legacy),Canada,Tablet,899,$23.76  ~ $24.02 ,$19.75 ,N/A,0.12%,N/A,84.19%
+Sports (Legacy),Canada,Connected Device,"5,702",$24.87  ~ $25.39 ,N/A,N/A,N/A,N/A,97.79%
+Sports (Legacy),Canada,Desktop,"8,054",$23.99  ~ $24.25 ,$10.51 ,$261.21 ,0.23%,N/A,91.43%
+Sports (Legacy),United States,Connected Device,"113,568",$21.05  ~ $21.33 ,N/A,N/A,N/A,N/A,99.45%
+Sports (Legacy),United States,Desktop,"171,207",$22.24  ~ $22.25 ,$147.38 ,N/A,0.02%,N/A,90.62%
+Sports (Legacy),United States,Mobile Web,"375,691",$23.38  ~ $23.51 ,$140.18 ,"$2,825.44 ",0.02%,N/A,84.86%
+Sports (Legacy),United States,Tablet,"14,415",$22.96  ~ $23.14 ,$52.28 ,$98.99 ,0.04%,N/A,88.17%
+Sports (Legacy),United States,Others,"1,872",$37.86  ~ $37.86 ,N/A,N/A,N/A,N/A,100.00%
+Style & Fashion (Legacy),Canada,Mobile Web,"11,662",$23.54  ~ $23.63 ,"$1,087.84 ",N/A,0.00%,N/A,82.85%
+Style & Fashion (Legacy),Canada,Tablet,690,$23.56  ~ $23.87 ,N/A,N/A,N/A,N/A,82.04%
+Style & Fashion (Legacy),Canada,Connected Device,"5,597",$24.52  ~ $25.01 ,N/A,N/A,N/A,N/A,97.94%
+Style & Fashion (Legacy),Canada,Desktop,"4,816",$24.35  ~ $24.66 ,$344.29 ,$254.62 ,0.01%,N/A,91.93%
+Style & Fashion (Legacy),United States,Desktop,"6,727",$21.05  ~ $21.61 ,$817.46 ,N/A,0.00%,N/A,88.71%
+Style & Fashion (Legacy),United States,Mobile Web,"20,071",$21.16  ~ $22.31 ,"$1,094.94 ",N/A,0.00%,N/A,78.55%
+Style & Fashion (Legacy),United States,Tablet,780,$21.20  ~ $21.97 ,N/A,N/A,N/A,N/A,79.50%
+Style & Fashion (Legacy),United States,Connected Device,57,$33.84  ~ $36.23 ,N/A,N/A,N/A,N/A,96.63%
+Style & Fashion (Legacy),United States,Others,3,$0.00  ~ $0.00 ,N/A,N/A,N/A,N/A,N/A
+Technology & Computing (Legacy),Canada,Connected Device,"30,150",$17.73  ~ $17.90 ,N/A,N/A,N/A,N/A,99.46%
+Technology & Computing (Legacy),Canada,Desktop,"9,024",$23.90  ~ $24.09 ,$117.77 ,N/A,0.02%,N/A,92.32%
+Technology & Computing (Legacy),Canada,Mobile Web,"40,760",$22.66  ~ $22.74 ,$578.02 ,N/A,0.00%,N/A,92.32%
+Technology & Computing (Legacy),Canada,Tablet,"1,301",$23.94  ~ $24.02 ,N/A,N/A,N/A,N/A,90.50%
+Technology & Computing (Legacy),United States,Connected Device,"52,610",$23.76  ~ $24.37 ,N/A,N/A,N/A,N/A,99.40%
+Technology & Computing (Legacy),United States,Desktop,"360,602",$24.08  ~ $24.98 ,"$1,628.91 ",N/A,0.00%,N/A,92.77%
+Technology & Computing (Legacy),United States,Mobile Web,"711,781",$23.15  ~ $23.81 ,"$1,194.28 ",N/A,0.00%,N/A,96.19%
+Technology & Computing (Legacy),United States,Tablet,"29,773",$22.81  ~ $23.51 ,$445.44 ,N/A,0.01%,N/A,94.84%
+Technology & Computing (Legacy),United States,Others,"1,288",$21.42  ~ $22.11 ,N/A,N/A,N/A,N/A,99.88%
+Travel (Legacy),Canada,Tablet,589,$23.97  ~ $24.18 ,$46.47 ,N/A,0.05%,N/A,83.94%
+Travel (Legacy),Canada,Connected Device,"5,599",$24.94  ~ $25.47 ,N/A,N/A,N/A,N/A,97.79%
+Travel (Legacy),Canada,Desktop,"4,862",$24.45  ~ $24.76 ,N/A,N/A,N/A,N/A,91.82%
+Travel (Legacy),Canada,Mobile Web,"11,622",$23.73  ~ $23.75 ,N/A,N/A,N/A,N/A,83.37%
+Travel (Legacy),United States,Mobile Web,"17,360",$21.37  ~ $23.25 ,"$1,339.91 ",N/A,0.00%,N/A,81.76%
+Travel (Legacy),United States,Tablet,820,$21.77  ~ $22.40 ,N/A,N/A,N/A,N/A,82.10%
+Travel (Legacy),United States,Others,8,$37.50  ~ $37.50 ,N/A,N/A,N/A,N/A,100.00%
+Travel (Legacy),United States,Connected Device,253,$34.75  ~ $36.58 ,N/A,N/A,N/A,N/A,97.78%
+Travel (Legacy),United States,Desktop,"4,964",$20.72  ~ $21.36 ,$69.04 ,N/A,0.03%,N/A,89.86%
