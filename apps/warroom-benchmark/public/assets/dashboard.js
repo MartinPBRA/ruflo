@@ -84,9 +84,12 @@ async function load() {
 }
 
 function renderSummary(s) {
+  const scopeParts = [];
+  if (state.country) scopeParts.push(state.country);
+  scopeParts.push(state.channel === 'Overview' ? 'All Channels' : state.channel);
   $('#summary').innerHTML = `
     <div class="brand">
-      <div class="label">${state.channel === 'Overview' ? 'All Channels' : state.channel}</div>
+      <div class="label">${scopeParts.join(' · ')}</div>
       <div class="title">Summary</div>
     </div>
     <div class="stat"><div class="label">eCPM</div><div class="value">${fmtRange(s.ecpm_low, s.ecpm_high)}</div></div>
