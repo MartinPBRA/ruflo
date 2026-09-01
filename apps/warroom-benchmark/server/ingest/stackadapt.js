@@ -25,6 +25,11 @@ export function parseValue(raw) {
 const scalar = (raw) => parseValue(raw)?.low ?? null;
 const integer = (raw) => { const p = parseValue(raw); return p ? Math.round(p.low) : null; };
 
+// Country whitelist. Rows outside this set are dropped at parse time,
+// so any future StackAdapt drop that includes Mexico, UK, Ireland, etc.
+// will silently exclude them without touching this file.
+const ALLOWED_COUNTRIES = new Set(['United States', 'Canada']);
+
 const MONTHS = { January: '01', February: '02', March: '03', April: '04', May: '05', June: '06', July: '07', August: '08', September: '09', October: '10', November: '11', December: '12' };
 function periodSortKey(period) {
   const m = period && period.match(/^(\w+)\s+(\d{4})$/);
@@ -56,13 +61,16 @@ export function parseStackAdaptCsv(filePath) {
   const text = readFileSync(filePath, 'utf8');
   const records = parseCsv(text, { columns: true, skip_empty_lines: true, relax_column_count: true, trim: true });
   const { source, period, channel, period_sort } = metaFromFilename(filePath);
-  return records.map((r) => {
+  const out = [];
+  for (const r of records) {
+    const country = pick(r, 'Country');
+    if (!country || !ALLOWED_COUNTRIES.has(country)) continue;
     const ecpm = parseValue(pick(r, 'eCPM'));
-    return {
+    out.push({
       source, period, period_sort, channel,
       category:       pick(r, 'Category'),
       brand_category: pick(r, 'Brand Category'),
-      country:        pick(r, 'Country'),
+      country,
       device:         pick(r, 'Device'),
       video_type:     pick(r, 'Video Type'),
       impressions:    integer(pick(r, 'Impressions')),
@@ -73,8 +81,9 @@ export function parseStackAdaptCsv(filePath) {
       ctr:            scalar(pick(r, 'CTR')),
       video_completion: scalar(pick(r, 'Video Completion Rate')),
       audio_completion: scalar(pick(r, 'Audio Completion Rate')),
-    };
-  });
+    });
+  }
+  return out;
 }
 
 export function loadStackAdaptDirectory(db, dirPath) {

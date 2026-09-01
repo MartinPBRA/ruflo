@@ -3,9 +3,6 @@
 // entirely offline (Google Fonts is the only remote call).
 //
 //   npm run export:dashboard [output-path]
-//
-// The runtime uses the same UI/renderers as the live dashboard but reads
-// from an embedded __DATASET__ instead of hitting the API.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -15,19 +12,16 @@ import { db } from '../server/db.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outPath = process.argv[2] || join(__dirname, '..', 'export', 'dashboard.html');
 
-// Keep the embedded dataset compact: drop non-filterable columns and
-// round floats to 2dp. 80k+ rows × verbose JSON balloons the file otherwise.
 const round = (n) => (n == null ? null : Math.round(n * 100) / 100);
 const rawRows = db.prepare(`
-  SELECT period, channel, category, brand_category, country, device, video_type,
+  SELECT period, period_sort, channel, category, brand_category, country,
          impressions, ecpm_low, ecpm_high, ecpc, ecpe, ctr,
          video_completion, audio_completion
   FROM benchmarks
 `).all();
 const rows = rawRows.map((r) => ({
   period: r.period, channel: r.channel,
-  category: r.category, brand_category: r.brand_category,
-  country: r.country, device: r.device, video_type: r.video_type,
+  category: r.category, brand_category: r.brand_category, country: r.country,
   impressions: r.impressions,
   ecpm_low: round(r.ecpm_low), ecpm_high: round(r.ecpm_high),
   ecpc: round(r.ecpc), ecpe: round(r.ecpe), ctr: round(r.ctr),
@@ -36,7 +30,7 @@ const rows = rawRows.map((r) => ({
 }));
 
 const uniq = (arr) => [...new Set(arr.filter((v) => v != null && v !== ''))];
-const periodPairs = uniq(rows.map((r) => r.period))
+const periodPairs = uniq(rawRows.map((r) => r.period))
   .map((p) => ({ period: p, sort: rawRows.find((r) => r.period === p)?.period_sort || p }))
   .sort((a, b) => b.sort.localeCompare(a.sort));
 
@@ -44,8 +38,6 @@ const meta = {
   periods: periodPairs.map((p) => p.period),
   countries: uniq(rows.map((r) => r.country)).sort(),
   channels: uniq(rows.map((r) => r.channel)).sort(),
-  devices: uniq(rows.map((r) => r.device)).sort(),
-  video_types: uniq(rows.map((r) => r.video_type)).sort(),
 };
 
 const brandCss = readFileSync(join(__dirname, '..', 'public', 'assets', 'brand.css'), 'utf8');
@@ -53,7 +45,6 @@ const dashCss = readFileSync(join(__dirname, '..', 'public', 'assets', 'dashboar
 const dashJs = readFileSync(join(__dirname, '..', 'public', 'assets', 'dashboard.js'), 'utf8');
 const dashHtml = readFileSync(join(__dirname, '..', 'public', 'dashboard.html'), 'utf8');
 
-// Rewrite dashboard.js to serve everything from an embedded dataset + facets.
 const bakedJs = dashJs
   .replace(/async function loadMeta\(\)[\s\S]*?await refreshFacets\(\);\n\}/, `
 async function loadMeta() {
@@ -63,31 +54,21 @@ async function loadMeta() {
   populate('#f-country', meta.countries);
   await refreshFacets();
 }`)
-  .replace(/async function refreshFacets\(\)[\s\S]*?if \(!facets\.video_types\.includes\(prev\.video_type\)\) state\.video_type = '';\n\}/, `
+  .replace(/async function refreshFacets\(\)[\s\S]*?if \(!facets\.brand_categories\.includes\(prev\.brand_category\)\) state\.brand_category = '';\n\}/, `
 async function refreshFacets() {
   const matching = __DATASET__.filter((r) =>
     (!state.period  || r.period === state.period) &&
     (!state.country || r.country === state.country) &&
-    (state.channel === 'Overview' || r.channel === state.channel) &&
-    (!state.device  || r.device === state.device) &&
-    (!state.video_type || r.video_type === state.video_type));
+    (state.channel === 'Overview' || r.channel === state.channel));
   const facets = {
     categories:       [...new Set(matching.map((r) => r.category).filter(Boolean))].sort(),
     brand_categories: [...new Set(matching.map((r) => r.brand_category).filter(Boolean))].sort(),
-    devices:          [...new Set(matching.map((r) => r.device).filter(Boolean))].sort(),
-    video_types:      [...new Set(matching.map((r) => r.video_type).filter(Boolean))].sort(),
   };
   const prev = { ...state };
   populate('#f-category', facets.categories, prev.category);
   populate('#f-brand', facets.brand_categories, prev.brand_category);
-  populate('#f-device', facets.devices, prev.device);
-  populate('#f-video', facets.video_types, prev.video_type);
-  $('#f-device-wrap').hidden = facets.devices.length === 0;
-  $('#f-video-wrap').hidden  = facets.video_types.length === 0;
   if (!facets.categories.includes(prev.category)) state.category = '';
   if (!facets.brand_categories.includes(prev.brand_category)) state.brand_category = '';
-  if (!facets.devices.includes(prev.device)) state.device = '';
-  if (!facets.video_types.includes(prev.video_type)) state.video_type = '';
 }
 
 function avg(arr, key) {
@@ -103,9 +84,7 @@ async function load() {
     (state.channel === 'Overview' || r.channel === state.channel) &&
     (!state.country || r.country === state.country) &&
     (!state.category || r.category === state.category) &&
-    (!state.brand_category || r.brand_category === state.brand_category) &&
-    (!state.device || r.device === state.device) &&
-    (!state.video_type || r.video_type === state.video_type));
+    (!state.brand_category || r.brand_category === state.brand_category));
 
   const summary = {
     matches: matching.length,
@@ -121,9 +100,7 @@ async function load() {
     (!state.period || r.period === state.period) &&
     (!state.country || r.country === state.country) &&
     (!state.category || r.category === state.category) &&
-    (!state.brand_category || r.brand_category === state.brand_category) &&
-    (!state.device || r.device === state.device) &&
-    (!state.video_type || r.video_type === state.video_type));
+    (!state.brand_category || r.brand_category === state.brand_category));
   const byChannelMap = new Map();
   for (const r of channelWide) {
     if (!byChannelMap.has(r.channel)) byChannelMap.set(r.channel, []);

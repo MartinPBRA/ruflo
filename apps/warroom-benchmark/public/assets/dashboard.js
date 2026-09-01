@@ -7,15 +7,13 @@ const CHANNEL_COLORS = {
 };
 const state = {
   channel: 'Overview',
-  period: '',            // set from meta on first load (most recent)
+  period: '',
   country: '',
   category: '',
   brand_category: '',
-  device: '',
-  video_type: '',
   sort: { key: 'impressions', dir: 'desc' },
 };
-let meta = { periods: [], countries: [], channels: [], devices: [], video_types: [] };
+let meta = { periods: [], countries: [], channels: [] };
 
 function fmtInt(n)   { return n == null ? '—' : Math.round(Number(n)).toLocaleString(); }
 function fmtMoney(n) { return n == null || !Number.isFinite(Number(n)) ? '—' : `$${Number(n).toFixed(2)}`; }
@@ -32,10 +30,6 @@ function renderTabs() {
     `<button class="dash-tab ${c === state.channel ? 'active' : ''}" data-ch="${c}">${c}</button>`).join('');
   $$('.dash-tab').forEach((b) => b.addEventListener('click', () => {
     state.channel = b.dataset.ch;
-    // Reset dimensional filters that don't apply to the new channel
-    if (state.channel !== 'Video' && state.channel !== 'CTV') {
-      state.device = ''; state.video_type = '';
-    }
     renderTabs(); load();
   }));
 }
@@ -49,7 +43,7 @@ function populate(sel, values, selected = '', includeAll = true) {
 
 async function loadMeta() {
   meta = await fetch('/api/benchmarks/meta').then((r) => r.json());
-  populate('#f-period', meta.periods, meta.periods[0] || '', false);   // required, defaults to most recent
+  populate('#f-period', meta.periods, meta.periods[0] || '', false);
   state.period = meta.periods[0] || '';
   populate('#f-country', meta.countries);
   await refreshFacets();
@@ -60,24 +54,14 @@ async function refreshFacets() {
   if (state.period) params.set('period', state.period);
   if (state.country) params.set('country', state.country);
   if (state.channel !== 'Overview') params.set('channel', state.channel);
-  if (state.device) params.set('device', state.device);
-  if (state.video_type) params.set('video_type', state.video_type);
   const facets = await fetch('/api/benchmarks/facets?' + params).then((r) => r.json());
 
   const prev = { ...state };
   populate('#f-category', facets.categories, prev.category);
   populate('#f-brand', facets.brand_categories, prev.brand_category);
-  populate('#f-device', facets.devices, prev.device);
-  populate('#f-video', facets.video_types, prev.video_type);
-
-  // Show device / video_type only when they exist in the current slice
-  $('#f-device-wrap').hidden = facets.devices.length === 0;
-  $('#f-video-wrap').hidden  = facets.video_types.length === 0;
 
   if (!facets.categories.includes(prev.category)) state.category = '';
   if (!facets.brand_categories.includes(prev.brand_category)) state.brand_category = '';
-  if (!facets.devices.includes(prev.device)) state.device = '';
-  if (!facets.video_types.includes(prev.video_type)) state.video_type = '';
 }
 
 async function load() {
@@ -88,8 +72,6 @@ async function load() {
   if (state.country) params.set('country', state.country);
   if (state.category) params.set('category', state.category);
   if (state.brand_category) params.set('brand_category', state.brand_category);
-  if (state.device) params.set('device', state.device);
-  if (state.video_type) params.set('video_type', state.video_type);
 
   const data = await fetch('/api/benchmarks/aggregate?' + params).then((r) => r.json());
 
@@ -190,14 +172,12 @@ $$('#segments thead th').forEach((th) => th.addEventListener('click', () => {
 for (const [id, key] of [
   ['#f-period', 'period'], ['#f-country', 'country'],
   ['#f-category', 'category'], ['#f-brand', 'brand_category'],
-  ['#f-device', 'device'], ['#f-video', 'video_type'],
 ]) {
   $(id).addEventListener('change', (e) => { state[key] = e.target.value; load(); });
 }
 $('#f-reset').addEventListener('click', () => {
-  state.country = state.category = state.brand_category = state.device = state.video_type = '';
+  state.country = state.category = state.brand_category = '';
   $('#f-country').value = ''; $('#f-category').value = ''; $('#f-brand').value = '';
-  $('#f-device').value = ''; $('#f-video').value = '';
   load();
 });
 
