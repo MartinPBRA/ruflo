@@ -70,10 +70,24 @@ writeFileSync(join(outDir, 'dashboard.css'), `${brandCss}\n\n/* ---- dashboard -
 const dashJsSrc = readFileSync(join(__dirname, '..', 'public', 'assets', 'dashboard.js'), 'utf8');
 const runtime = dashJsSrc
   .replace(/async function loadMeta\(\)[\s\S]*?await refreshFacets\(\);\n\}/, `
+async function fetchDataset() {
+  // Try the plain JSON first, then fall back to the gzipped one and
+  // decompress in the browser. Lets the file host reject the 22 MB .json
+  // (HubSpot free tier does this) while still working from the 1.3 MB .gz.
+  let res = await fetch('benchmarks.json');
+  if (res.ok) return res.json();
+  res = await fetch('benchmarks.json.gz');
+  if (!res.ok) throw new Error('Could not load benchmarks.json or benchmarks.json.gz (' + res.status + ')');
+  if (typeof DecompressionStream === 'undefined') {
+    throw new Error('Browser too old to decompress .gz. Upload benchmarks.json instead.');
+  }
+  const ds = new DecompressionStream('gzip');
+  const text = await new Response(res.body.pipeThrough(ds)).text();
+  return JSON.parse(text);
+}
+
 async function loadMeta() {
-  const res = await fetch('benchmarks.json');
-  if (!res.ok) throw new Error('Could not load benchmarks.json (' + res.status + ')');
-  const payload = await res.json();
+  const payload = await fetchDataset();
   __DATASET__ = payload.rows;
   meta = payload.meta;
   populate('#f-period', meta.periods, meta.periods[0] || '', false);
