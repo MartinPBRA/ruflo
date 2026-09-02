@@ -81,7 +81,22 @@ async function load() {
   renderSummary(data.summary);
   renderTiles(data);
   renderTable(data.top_segments);
+  postHeight();
 }
+
+// Auto-resize: post document height to parent (WordPress) so an embedding
+// iframe can grow with the content instead of cropping. Safe cross-origin —
+// postMessage doesn't leak anything and parents that aren't listening ignore it.
+function postHeight() {
+  if (window.parent === window) return;
+  const h = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight
+  );
+  window.parent.postMessage({ type: 'warroom:height', height: h }, '*');
+}
+window.addEventListener('resize', postHeight);
+window.addEventListener('load', postHeight);
 
 function renderSummary(s) {
   const scopeParts = [];
