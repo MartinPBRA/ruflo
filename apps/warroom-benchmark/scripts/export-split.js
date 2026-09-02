@@ -71,29 +71,62 @@ const dashJsSrc = readFileSync(join(__dirname, '..', 'public', 'assets', 'dashbo
 const runtime = dashJsSrc
   .replace(/async function loadMeta\(\)[\s\S]*?await refreshFacets\(\);\n\}/, `
 async function fetchDataset() {
-  // Try the plain JSON first, then fall back to the gzipped one and
-  // decompress in the browser. Lets the file host reject the 22 MB .json
-  // (HubSpot free tier does this) while still working from the 1.3 MB .gz.
-  let res = await fetch('benchmarks.json');
-  if (res.ok) return res.json();
-  res = await fetch('benchmarks.json.gz');
-  if (!res.ok) throw new Error('Could not load benchmarks.json or benchmarks.json.gz (' + res.status + ')');
-  if (typeof DecompressionStream === 'undefined') {
-    throw new Error('Browser too old to decompress .gz. Upload benchmarks.json instead.');
+  const attempts = [];
+  // Try plain JSON first
+  try {
+    const r = await fetch('benchmarks.json', { cache: 'no-cache' });
+    attempts.push('benchmarks.json → ' + r.status);
+    if (r.ok) return await r.json();
+  } catch (e) {
+    attempts.push('benchmarks.json → ' + e.message);
   }
-  const ds = new DecompressionStream('gzip');
-  const text = await new Response(res.body.pipeThrough(ds)).text();
-  return JSON.parse(text);
+  // Fall back to gzipped
+  try {
+    const r = await fetch('benchmarks.json.gz', { cache: 'no-cache' });
+    attempts.push('benchmarks.json.gz → ' + r.status);
+    if (r.ok) {
+      if (typeof DecompressionStream === 'undefined') {
+        throw new Error('Browser too old for DecompressionStream (Chrome<80/Firefox<113/Safari<16.4).');
+      }
+      const ct = r.headers.get('content-type') || '';
+      const ce = r.headers.get('content-encoding') || '';
+      // If the host already decompressed (Content-Encoding: gzip served
+      // on the .gz file), we get raw JSON here; parse directly.
+      if (ct.includes('json') || ce.includes('gzip')) {
+        try { return await r.clone().json(); } catch (_) { /* fall through */ }
+      }
+      const ds = new DecompressionStream('gzip');
+      const text = await new Response(r.body.pipeThrough(ds)).text();
+      return JSON.parse(text);
+    }
+  } catch (e) {
+    attempts.push('benchmarks.json.gz → ' + e.message);
+  }
+  throw new Error('Data load failed. Attempts:\\n  ' + attempts.join('\\n  ') +
+    '\\n\\nBase URL: ' + location.href);
 }
 
 async function loadMeta() {
-  const payload = await fetchDataset();
-  __DATASET__ = payload.rows;
-  meta = payload.meta;
-  populate('#f-period', meta.periods, meta.periods[0] || '', false);
-  state.period = meta.periods[0] || '';
-  populate('#f-country', meta.countries);
-  await refreshFacets();
+  try {
+    const payload = await fetchDataset();
+    __DATASET__ = payload.rows;
+    meta = payload.meta;
+    populate('#f-period', meta.periods, meta.periods[0] || '', false);
+    state.period = meta.periods[0] || '';
+    populate('#f-country', meta.countries);
+    await refreshFacets();
+  } catch (err) {
+    const app = document.querySelector('main.dash-shell');
+    if (app) {
+      app.innerHTML = '<div style="background:#fff;border:1px solid #E5E3E0;border-radius:6px;padding:24px;margin:24px 0;">' +
+        '<h2 style="margin-top:0;color:#C64949;">Data failed to load</h2>' +
+        '<pre style="white-space:pre-wrap;font-family:JetBrains Mono,Menlo,monospace;font-size:0.8rem;color:#3B4047;background:#F5F5F7;padding:12px;border-radius:4px;">' +
+        String(err.message || err).replace(/</g, '&lt;') + '</pre>' +
+        '<p style="color:#3B4047;font-size:0.9rem;">Open browser dev tools (F12 → Network tab) for full detail. Try opening the URLs above directly.</p>' +
+        '</div>';
+    }
+    throw err;
+  }
 }`)
   .replace(/async function refreshFacets\(\)[\s\S]*?if \(!facets\.brand_categories\.includes\(prev\.brand_category\)\) state\.brand_category = '';\n\}/, `
 async function refreshFacets() {
